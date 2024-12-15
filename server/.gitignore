@@ -1,2 +1,5 @@
 # Environment Variables
 .env
+
+# System Modules
+node_modules
