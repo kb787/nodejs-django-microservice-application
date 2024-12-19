@@ -1,27 +1,22 @@
 const { Pool } = require("pg");
 const dotenv = require("dotenv");
+const colors = require("colors");
 dotenv.config();
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  user: process.env.database_user,
+  host: process.env.database_host,
+  database: process.env.database_name,
+  password: process.env.database_password,
+  port: process.env.database_port,
 });
 
 const connectDB = async () => {
-  let client;
   try {
-    client = await pool.connect();
+    await pool.connect();
     console.log(`Successfully connected to database`.bgBlue);
   } catch (err) {
-    console.log(`Unable to connect to database due to error ${err}`);
-  } finally {
-    if (client) client.release();
+    console.log(`Unable to connect to database due to error ${err}`.bgRed);
   }
 };
 
